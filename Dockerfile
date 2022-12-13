@@ -17,6 +17,10 @@ COPY . .
 
 RUN npm run build
 
+# wait-for-it.sh
+COPY wait-for-it.sh ./
+RUN chmod +x wait-for-it.sh
+
 EXPOSE 3000
 
 CMD [ "node", "dist/main" ]
