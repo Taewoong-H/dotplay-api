@@ -4,17 +4,18 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DotModule } from './dot/dot.module';
 import { UserModule } from './user/user.module';
+import { User } from './user/entities/user.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 3306,
+      port: 13306,
       username: 'root',
       password: 'root',
-      database: 'mysql',
-      entities: [],
+      database: 'dotplay',
+      entities: [User],
       synchronize: true,
     }),
     DotModule,
