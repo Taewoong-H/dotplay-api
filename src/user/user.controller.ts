@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -17,8 +18,10 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
+import { JwtAuthGuard } from 'src/auth/auth.guard';
 
 @ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @ApiTags('user')
 @Controller('user')
 export class UserController {

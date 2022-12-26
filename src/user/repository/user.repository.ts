@@ -3,8 +3,8 @@ import { Repository } from 'typeorm';
 
 export type UserCustomRepository = typeof UserCustomRepository;
 export const UserCustomRepository = {
-  async findByEmail(email: string): Promise<User> {
-    return this.findOne({});
+  async findOneByEmail(email: string): Promise<User> {
+    return this.findOne({ email });
   },
 };
 // ToDo: custom-repository 생성
