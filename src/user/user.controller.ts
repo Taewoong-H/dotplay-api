@@ -16,6 +16,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { User } from './entities/user.entity';
 
 @ApiBearerAuth()
 @ApiTags('user')
@@ -25,12 +26,12 @@ export class UserController {
 
   @Post()
   @ApiOperation({ summary: 'Create user' })
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
+    return await this.userService.create(createUserDto);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<User[]> {
     return this.userService.findAll();
   }
 

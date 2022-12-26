@@ -12,8 +12,20 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const { email, password, nickname, phoneNumber } = createUserDto;
+
+    const user = new User();
+    user.email = email;
+    user.password = password;
+    user.nickname = nickname;
+    user.phoneNumber = phoneNumber;
+
+    await this.userRepository.save(user);
+    user.password = undefined;
+    console.log(user);
+
+    return user;
   }
 
   findAll(): Promise<User[]> {
