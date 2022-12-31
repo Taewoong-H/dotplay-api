@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DotModule } from './dot/dot.module';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
+import { BoardModule } from './board/board.module';
+import { Board } from './board/entities/board.entity';
 
 @Module({
   imports: [
@@ -15,11 +16,12 @@ import { User } from './user/entities/user.entity';
       username: 'root',
       password: 'root',
       database: 'dotplay',
-      entities: [User],
+      entities: [User, Board],
       synchronize: true,
+      charset: 'utf8mb4',
     }),
-    DotModule,
     UserModule,
+    BoardModule,
   ],
   controllers: [AppController],
   providers: [AppService],
