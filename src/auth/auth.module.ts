@@ -4,6 +4,8 @@ import { AuthController } from './auth.controller';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt/jwt.strategy';
+import { UserRepository } from 'src/user/repository/user.repository';
+import { TypeOrmCustomModule } from 'src/util/typeorm-ex.module';
 
 @Module({
   imports: [
@@ -14,8 +16,10 @@ import { JwtStrategy } from './jwt/jwt.strategy';
       secret: 'secret',
       signOptions: { expiresIn: '1y' },
     }),
+    TypeOrmCustomModule.forCustomRepository(UserRepository),
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
+  exports: [JwtStrategy, PassportModule],
 })
 export class AuthModule {}
