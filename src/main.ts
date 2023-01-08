@@ -9,6 +9,10 @@ async function bootstrap() {
     .setTitle('Dotplay API')
     .setDescription('The dotplay API description')
     .setVersion('1.0')
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'Token' },
+      'access-token',
+    )
     .addTag('dot')
     .build();
 

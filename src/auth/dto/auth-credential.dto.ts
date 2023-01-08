@@ -1,17 +1,13 @@
 import {
-  IsInt,
-  IsString,
   IsEmail,
-  MinLength,
-  MaxLength,
+  IsString,
   Matches,
+  MaxLength,
+  MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateUserDto {
-  //   @IsInt()
-  //   readonly id: number;
-
+export class AuthCredentialsDto {
   @ApiProperty({ example: 'test@gmail.com', description: 'user email' })
   @IsEmail()
   readonly email: string;
@@ -24,13 +20,5 @@ export class CreateUserDto {
   @Matches(/^[a-zA-Z0-9]*$/, {
     message: 'password only accepts english and number',
   })
-  readonly password: string;
-
-  @ApiProperty({ example: 'test1', description: 'user nickname' })
-  @IsString()
-  readonly nickname: string;
-
-  @ApiProperty({ example: '010-1234-5678', description: 'user phoneNumber' })
-  @IsString()
-  readonly phoneNumber: string;
+  password: string;
 }

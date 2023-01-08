@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
+import { AuthModule } from './auth/auth.module';
 import { BoardModule } from './board/board.module';
 import { Board } from './board/entities/board.entity';
 
@@ -21,6 +22,7 @@ import { Board } from './board/entities/board.entity';
       charset: 'utf8mb4',
     }),
     UserModule,
+    AuthModule,
     BoardModule,
   ],
   controllers: [AppController],

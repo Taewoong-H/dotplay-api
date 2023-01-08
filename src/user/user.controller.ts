@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -16,8 +17,11 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { User } from './entities/user.entity';
+import { JwtAuthGuard } from 'src/auth/auth.guard';
 
 @ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @ApiTags('user')
 @Controller('user')
 export class UserController {
@@ -25,12 +29,12 @@ export class UserController {
 
   @Post()
   @ApiOperation({ summary: 'Create user' })
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
+    return await this.userService.create(createUserDto);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<User[]> {
     return this.userService.findAll();
   }
 
