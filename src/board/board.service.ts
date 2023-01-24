@@ -13,6 +13,7 @@ export class BoardService {
     private boardRepository: Repository<Board>,
   ) {}
 
+  /** 게시물 생성 */
   async create(createBoardDto: CreateBoardDto, user: User) {
     const { title, description, dot } = createBoardDto;
 
@@ -27,7 +28,13 @@ export class BoardService {
     return board;
   }
 
-  findAll(user: User): Promise<Board[]> {
+  /** 게시물 전체 검색 */
+  findAll(): Promise<Board[]> {
+    return this.boardRepository.find();
+  }
+
+  /** 게시물 전체 검색(작성자) */
+  findAllWithUser(user: User): Promise<Board[]> {
     return this.boardRepository.find({
       where: {
         user,
@@ -35,14 +42,29 @@ export class BoardService {
     });
   }
 
+  /** 게시물 상세 조회 */
   findOne(id: number) {
     return this.boardRepository.findOneBy({ id });
   }
 
+  /** 게시물 상세 조회(작성자) */
+  async findOneWithUser(id: number, user: User) {
+    const isUpdate = 'Y';
+    const returnBoard = await this.boardRepository.findOne({
+      where: {
+        id: id,
+        user: user,
+      },
+    });
+    return returnBoard ? { ...returnBoard, isUpdate } : null;
+  }
+
+  /** 게시물 수정 */
   async update(id: number, updateBoardDto: UpdateBoardDto) {
     return this.boardRepository.update(id, updateBoardDto);
   }
 
+  /** 게시물 삭제 */
   remove(id: number, user: User) {
     return this.boardRepository.delete({ id, user });
   }

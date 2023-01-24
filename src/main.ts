@@ -9,8 +9,14 @@ async function bootstrap() {
     .setTitle('Dotplay API')
     .setDescription('The dotplay API description')
     .setVersion('1.0')
+    //JWT 토큰 설정
     .addBearerAuth(
-      { type: 'http', scheme: 'bearer', bearerFormat: 'Token' },
+      {
+        type: 'http',
+        scheme: 'bearer',
+        name: 'JWT',
+        in: 'header',
+      },
       'access-token',
     )
     .addTag('dot')

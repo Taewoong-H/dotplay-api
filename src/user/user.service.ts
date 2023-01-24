@@ -23,7 +23,6 @@ export class UserService {
 
     await this.userRepository.save(user);
     user.password = undefined;
-    console.log(user);
 
     return user;
   }
